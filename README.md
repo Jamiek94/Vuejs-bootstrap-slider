@@ -10,13 +10,13 @@ A Vue.js wrapper for the bootstrap slider created by seiyria.
 
 #### Examples
 
-** 
+**Two sliders** 
 
 ```html
     <slider name="monthlyPrice" :min="0" :max="200" :value="monthlyPrice.value" :tooltip="false" change-event-name="onPriceChange"></slider>
 ```
 
-**
+**Pre set values, single slider**
 
 ```html
   <slider name="distance" :min="0" :max="3" :value="distance.value" :ticks="distance.ticks"
