@@ -1,14 +1,14 @@
 # Vuejs-bootstrap-slider
 A Vue.js wrapper for the bootstrap slider created by seiyria.
 
-#### Requirements:
+### Requirements:
 
 * Vue.js v1.0.26 (may work on older versions)
 * Bootstrap slider  (http://seiyria.com/bootstrap-slider/)
 * jQuery
 * Bootstrap v3
 
-#### Examples
+### Examples:
 
 **Two sliders** 
 
