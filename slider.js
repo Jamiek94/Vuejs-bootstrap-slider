@@ -46,21 +46,21 @@ module.exports = {
         var self = this;
 
         Vue.nextTick(function () {
-            var sliderElement = $("#" + self.name);
+            var sliderElement = document.getElementById(self.name);
 
             var options = {
-                value  : self.value,
+                value: self.value,
                 ticks: self.ticks,
                 ticks_labels: self.ticksLabels,
                 min: self.min,
                 max: self.max,
                 step: self.step,
-                tooltip: self.tooltip ? "show" : 'hide'
+                tooltip: self.tooltip ? "show" : "hide"
             };
 
-            sliderElement.slider(options);
+            var slider = new Slider(sliderElement, options);
 
-            sliderElement.on("slide", function (event) {
+            slider.on("slide", function (event) {
                 self.$dispatch(self.changeEventName, event.value)
             });
         });
