@@ -14,55 +14,78 @@ module.exports = {
         },
         ticks: {
             type: Array,
-            required: false
-
+            required: false,
+            default: () => ([])
         },
         ticksLabels: {
             type: Array,
-            required: false
-
+            required: false,
+            default: () => ([])
         },
         name: {
             type: String,
             required: true
         },
-        step : {
-            type : Number,
-            required : false,
-            default : 1
+        step: {
+            type: Number,
+            required: false,
+            default: 1
         },
-        tooltip : {
-            type : Boolean,
-            required : false,
-            default : true
+        tooltip: {
+            type: Boolean,
+            required: false,
+            default: true
         },
-        changeEventName : {
-            type : String,
-            required : false,
-            default : "slide-change"
+        changeEventName: {
+            type: String,
+            required: false,
+            default: "slide-change"
         }
     },
+    data: () => ({
+        slider: null
+    }),
     ready: function () {
-        var self = this;
+        this.slider = $("#" + this.name);
 
-        Vue.nextTick(function () {
-            var sliderElement = $("#" + self.name);
+        let options = {
+            value: this.value,
+            ticks: this.ticks,
+            ticks_labels: this.ticksLabels,
+            min: this.min,
+            max: this.max,
+            step: this.step,
+            tooltip: this.tooltip ? "show" : 'hide'
+        };
 
-            var options = {
-                value  : self.value,
-                ticks: self.ticks,
-                ticks_labels: self.ticksLabels,
-                min: self.min,
-                max: self.max,
-                step: self.step,
-                tooltip: self.tooltip ? "show" : 'hide'
-            };
+        this.slider.slider(options);
 
-            sliderElement.slider(options);
-
-            sliderElement.on("slide", function (event) {
-                self.$dispatch(self.changeEventName, event.value)
-            });
+        this.slider.on("change", (event) => {
+            this.$dispatch(this.changeEventName, event.value.newValue)
         });
+    },
+    watch: {
+        value: function (newValue) {
+            let newSliderValue;
+
+            if (newValue instanceof Array) {
+                newSliderValue = [];
+                newValue.forEach((val) => {
+                    let number = parseInt(val);
+                    if(isNaN(number)){
+                        newSliderValue.push(val);
+                    } else{
+                        newSliderValue.push(number);
+                    }
+                })
+            }
+            else {
+                newSliderValue = newValue;
+            }
+
+            if (this.slider) {
+                this.slider.slider('setValue', newSliderValue);
+            }
+        }
     }
 };
