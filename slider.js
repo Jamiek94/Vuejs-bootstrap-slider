@@ -46,7 +46,7 @@ module.exports = {
         slider: null
     }),
     ready: function () {
-        this.slider = $("#" + this.name);
+        let slider_element = document.getElementById(this.name);
 
         let options = {
             value: this.value,
@@ -55,13 +55,13 @@ module.exports = {
             min: this.min,
             max: this.max,
             step: this.step,
-            tooltip: this.tooltip ? "show" : 'hide'
+            tooltip: this.tooltip ? 'show' : 'hide'
         };
 
-        this.slider.slider(options);
+       this.slider = new Slider(slider_element, options);
 
         this.slider.on("change", (event) => {
-            this.$dispatch(this.changeEventName, event.value.newValue)
+            this.$dispatch(this.changeEventName, event.value.newValue);
         });
     },
     watch: {
@@ -83,9 +83,7 @@ module.exports = {
                 newSliderValue = newValue;
             }
 
-            if (this.slider) {
-                this.slider.slider('setValue', newSliderValue);
-            }
+            this.slider.setValue(newSliderValue)
         }
     }
 };
