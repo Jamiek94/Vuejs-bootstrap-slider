@@ -58,10 +58,10 @@ module.exports = {
             tooltip: this.tooltip ? 'show' : 'hide'
         };
 
-       this.slider = new Slider(slider_element, options);
+        this.slider = new Slider(slider_element, options);
 
-        this.slider.on("change", (event) => {
-            this.$dispatch(this.changeEventName, event.value.newValue);
+        this.slider.on("change", (e) => {
+            this.$dispatch(this.changeEventName, e.newValue);
         });
     },
     watch: {
