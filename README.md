@@ -8,6 +8,45 @@ A Vue.js wrapper for the bootstrap slider created by seiyria.
 * jQuery
 * Bootstrap v3
 
+### Install
+1. Include component
+
+```js
+components: {
+        'slider': require('././../../plugins/slider'),
+    }
+```
+2. Set some data values
+
+```js
+ data: () => ({
+ distance: {
+            ticks: [0, 1, 2, 3],
+            ticks_labels: ['2 km', '5 km', '10 km', '25 km'],
+            value: 1
+        }
+   });
+```
+3. Include component in view
+
+```html
+  <slider name="distance" :min="0" :max="3" :value="distance.value" :ticks="distance.ticks"
+                                :ticks-labels="distance.ticks_labels" :tooltip="false"
+                                change-event-name="onDistanceChange"></slider>
+```
+4. Watch for slide changes
+
+```js
+  events: {
+  'onDistanceChange': function (value) {
+            console.log(value);
+        }
+  }
+  ```
+  
+  Prop "change-event-name" is not required. It's only needed when you have multiple sliders.
+  The default event is "slide-change". This event will be triggered whenever the slider changes.
+
 ### Examples:
 
 **Two sliders** 
